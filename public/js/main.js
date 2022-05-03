@@ -31,3 +31,61 @@ text.addEventListener('input',(event)=>{
 //     submit.disabled = false;
 //    }
 })
+
+const iconHeartWhite = document.getElementsByClassName('icon_heart_white');
+// foreach exist button clicked
+
+$('.toggle-button').each(function() {
+
+ if($(this).hasClass('is-liked'))
+ {
+  $(this).find('#icon_heart_white').css('display','block');
+  $(this).find('#icon_heart_red').css('display','none');
+ }
+ else{
+  $(this).find('#icon_heart_white').css('display','none');
+  $(this).find('#icon_heart_red').css('display','block');
+ }
+  
+})    
+
+// click button
+$('.toggle-button').click(function() {
+  // $(this).find('#countLike').text(0);
+  $(this).toggleClass('is-liked');
+    if($(this).hasClass('is-liked'))
+    {
+      $(this).find('#icon_heart_white').css('display','block');
+      $(this).find('#icon_heart_red').css('display','none');
+      $(this).find('#countLike').text(parseInt($(this).find('#countLike').text()) - 1 );
+      $.ajax({ 
+        type: "GET", 
+        dataType: "json", 
+        url: '/post/unlikePost', 
+        data: {'post_id': $(this).data('id')}, 
+        success: function(data){ 
+        console.log(data) 
+     } 
+  }); 
+    }
+    else{
+      $(this).find('#icon_heart_white').css('display','none');
+      $(this).find('#icon_heart_red').css('display','block');
+      $(this).find('#countLike').text(parseInt($(this).find('#countLike').text()) + 1 );
+  $.ajax({ 
+    type: "GET", 
+    dataType: "json", 
+    url: '/post/likePost', 
+    data: {'post_id': $(this).data('id')}, 
+    success: function(data){ 
+    console.log(data.success) 
+ } 
+}); 
+    }
+    // console.log($(this).find('#countLike').text());
+   
+    // console.log( $(this).data('id'));
+   
+})
+
+

@@ -34,5 +34,7 @@ Route::get('/post',[App\Http\Controllers\Posts\PostController::class, 'index']);
 // Route::get('/post/create',[App\Http\Controllers\Posts\PostController::class, 'create']);
 Route::post('/post',[App\Http\Controllers\Posts\PostController::class, 'store'])->name('post.store');
 
-Route::post('/likepost/{id}',[App\Http\Controllers\Posts\LikePostController::class, 'likePost'])->name('post.like');
-Route::post('/unlikepost/{id}',[App\Http\Controllers\Posts\LikePostController::class, 'unlikePost'])->name('post.unlike');
+Route::get('/post/likePost',[App\Http\Controllers\Posts\LikePostController::class, 'likePost'])->name('post.like');
+Route::get('/post/unlikePost',[App\Http\Controllers\Posts\LikePostController::class, 'unlikePost'])->name('post.unlike');
+
+// Route::get('/post',[App\Http\Controllers\Posts\LikePostController::class, 'CountLikePost']);

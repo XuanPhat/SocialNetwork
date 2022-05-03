@@ -68,15 +68,7 @@ class PostController extends Controller
         return redirect('/post')->with('success','Post updated successfully!');
     }
 
-    public function likePost($id)
-    {
-        // $post = Post::find($id);
-        // $post->like();
-        // $post->save();
-
-        // return redirect()->route('post.list')->with('message','Post Like successfully!');
-    }
-
+   
     /**
      * Display the specified resource.
      *
