@@ -56,11 +56,19 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown d-flex me-4">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="rounded-circle border d-flex justify-content-center align-items-center"
+                                style="width:70px;height:70px"
+                             alt="Avatar">
+                           {{-- <i class="fas fa-user-alt fa-3x text-info"></i> --}}
+                           @if(Auth::user()->image)
+                           <img src="{{ asset('storage/image/'.Auth::user()->image)}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%" />
+                           @endif
+                           </div>
+                                <div class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,6 +79,15 @@
                                     </form>
                                 </div>
                             </li>
+                            <li>
+                                {{-- <div> --}}
+                                    <form method="POST" action="{{route("logout")}}">
+                                        @csrf
+                                                <input type="submit" value="logout" />
+                                    </form>
+                                {{-- </div> --}}
+                            </li>
+                          
                         @endguest
                     </ul>
                 </div>

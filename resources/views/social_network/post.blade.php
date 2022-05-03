@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="header-links">
+                    {{-- <div class="header-links">
                         <ul class="links d-flex align-items-center mt-3 mt-md-0">
                             <li class="header-link-item d-flex align-items-center active">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-columns mr-1 icon-md">
@@ -65,7 +65,7 @@
                                 <a class="pt-1px d-none d-md-block" href="#">Videos</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

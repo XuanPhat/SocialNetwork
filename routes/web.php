@@ -18,11 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin')->middleware(['role:admin']);
-
-Route::get('/personal', function (){
-    return view('social_network.personal');
-});
-
+Route::get('/post', function (){
+    return view('social_network.post');
+})->name('post')->middleware(['auth']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
+Route::post('/home',[App\Http\Controllers\HomeController::class, 'upload'])->name('home');
+// Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
