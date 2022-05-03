@@ -22,6 +22,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
     
+     {{-- jquery --}}
+     <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+ 
+
+{{-- <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script> 
 </head>
 <body>
     <div id="app">
@@ -56,11 +64,19 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown d-flex me-4">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="rounded-circle border d-flex justify-content-center align-items-center"
+                                style="width:70px;height:70px"
+                             alt="Avatar">
+                           {{-- <i class="fas fa-user-alt fa-3x text-info"></i> --}}
+                           @if(Auth::user()->image)
+                           <img src="{{ asset('storage/image/'.Auth::user()->image)}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%" />
+                           @endif
+                           </div>
+                                <div class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,6 +87,15 @@
                                     </form>
                                 </div>
                             </li>
+                            <li>
+                                {{-- <div> --}}
+                                    <form method="POST" action="{{route("logout")}}">
+                                        @csrf
+                                                <input type="submit" value="logout" />
+                                    </form>
+                                {{-- </div> --}}
+                            </li>
+                          
                         @endguest
                     </ul>
                 </div>
