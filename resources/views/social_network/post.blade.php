@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="container" style="margin-top: 50px">
         {{-- @php
     // dd($postLikes);
@@ -22,8 +23,6 @@
                                         <img class="profile-pic" src="{{ asset('storage/image/' . Auth::user()->image) }}"
                                             alt="profile">
                                     @endif
-
-
                                     <span class="profile-name">Amiah Burton</span>
                                 </div>
                                 <div class="d-none d-md-block">
@@ -220,7 +219,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="dropdown">
+                                            {{-- <div class="dropdown">
                                                 <button class="btn p-0" type="button" id="dropdownMenuButton2"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -273,19 +272,39 @@
                                                             </path>
                                                         </svg> <span class="">Copy link</span></a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
+                                            @if($post->User->id == Auth::user()->id)
+                                            <div class="dropdown">
+                                                <button class="btn p-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-more-horizontal icon-lg pb-3px">
+                                                    <circle cx="12" cy="12" r="1"></circle>
+                                                    <circle cx="19" cy="12" r="1"></circle>
+                                                    <circle cx="5" cy="12" r="1"></circle>
+                                                </svg>
+                                                </button>                                  
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                 <li><a class="dropdown-item" id="delete-post" data-postid={{$post->id}} >Delete post</a></li>
+                                                 <li class="editPost" data-postid={{$post->id}}><a class="dropdown-item" >Edit post</a></li>
+                                                </ul>
+                                              </div>
+                                              @endif
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <p class="mb-3 tx-14">{{ $post->text }}</p>
-                                        <img class="img-fluid" src="{{ asset('storage/image/' . $post->image) }}"
+                                        <p class="mb-3 tx-14" id="text_post" style="display: block">{{ $post->text }}</p>
+                                        <input style="display: none;" class="form-control" 
+                                        value="{{$post->text}}" id="editPost" type="text"  name="text" placeholder="Edit Post...">
+                                        <img class="img-fluid" style="margin-top: 10px" src="{{ asset('storage/image/'.$post->image) }}"
                                             alt="">
                                     </div>
                                     <div class="card-footer">
                                         <div class="d-flex post-actions">
-
                                             <a data-id="{{ $post->id }}" href="javascript:;"
-                                                class="toggle-button  @php
+                                                class="toggle-button  
+                                                @php
                                     $countLike = (DB::table('post_likes')->select(DB::raw('count(user_id) as countLike'))->where('post_id', '=', $post->id)->where('user_id', '=', Auth::User()->id)->groupBy('post_id')->get());
                                      if(isset($countLike[0]->countLike))
                                      {
@@ -294,8 +313,8 @@
                                          else{
                                             echo " is-liked";
                                              } 
-                                             @endphp d-flex align-items-center text-muted me-4">
-
+                                             @endphp 
+                                             d-flex  text-muted me-4">
                                                 <p id="countLike">
                                                     {{ count($post->PostLike) }}
                                                 </p>
@@ -362,6 +381,75 @@
                                                 <p class="d-none d-md-block ms-2">Share</p>
                                             </a>
                                         </div>
+                                    {{-- @php
+                                       foreach ($post->Comment as $key => $value) {
+                                          dd($value->User->image);
+                                       }
+                                    @endphp --}}
+                                      <div class="comment_container">
+                                         <div class="d-block post-actions" id="comment_list">
+                                            @foreach ($post->Comment as $key => $value)
+                                            <div class="comment_items d-flex">
+                                                <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width:70px;height:70px" alt="Avatar">
+                                                    <img src="{{ asset('storage/image/'.$value->User->image)}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%">
+                                                </div>
+                                                <div  style="display: flex;
+                                                margin-left: 10px;
+                                                flex-direction: column;
+                                                width: 100%;">
+                                                    <div style="font-weight: bold">
+                                                       {{$value->User->name}}
+                                                    </div>
+                                                       <div class="comment_text">
+                                                        <p id="comment_des" >{{$value->content}}</p>
+                                                       </div>
+                                                        <input style="display: none" 
+                                                        data-image="{{Auth::user()->image}}" 
+                                                        data-idcomment="{{$value->id}}" 
+                                                        data-postid="{{$post->id}}" data-userid="{{Auth::user()->id}}"  
+                                                        class="form-control" value="{{$value->content}}" id="editComment" 
+                                                        class="editComment" type="text" name="text" placeholder="Comment...">
+            
+                                                    <div class="time_comment" style="display: flex">
+                                                        <p id="time_comment">{{$value->updated_at->diffForHumans()}}</p>
+                                                        <p style="margin-left: 12px;cursor:pointer;display:none" id="delete_form">Hủy</p>
+                                                    </div>
+                                                  
+                                                </div>
+                                                @if ($value->User->id == Auth::user()->id)
+                                                <div class="dropdown">
+                                                    <button class="btn p-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-more-horizontal icon-lg pb-3px">
+                                                        <circle cx="12" cy="12" r="1"></circle>
+                                                        <circle cx="19" cy="12" r="1"></circle>
+                                                        <circle cx="5" cy="12" r="1"></circle>
+                                                    </svg>
+                                                    </button>
+                                                  
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                     @if($value->User->id == Auth::user()->id)
+                                                     <li><a class="dropdown-item" data-id={{$value->id}} id="delete-comment">Delete Comment</a></li>
+                                                     <li class="edit" id="edit"><a class="dropdown-item" >Edit comment</a></li>
+                                                     @endif
+                                                  
+                                                    </ul>
+                                                  </div>
+                                                {{-- <div style="margin-left: 10px">
+                                                    <p style="cursor: pointer;color:red" class="edit" id="edit">Sửa</p>
+                                                </div> --}}
+                                                @endif
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                       
+                                        <div class="d-flex post-actions" >
+                                            <input class="form-control" id="textComment" class="inputComment" type="text" name="text" placeholder="Comment...">
+                                            <input data-id="{{$post->id}}" data-username="{{Auth::user()->name}}" data-image={{Auth::user()->image}}  id="send_comment" type="submit" name="send">
+                                        </div>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -663,4 +751,6 @@
             </div>
         </div>
     </div>
+ 
 @endsection
+

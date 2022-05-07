@@ -16,9 +16,6 @@ class PostController extends Controller
      */
     public function index()
     { 
-        // b:foreach
-    //    dd(Post::all());
-        // $posts = Post::join('users','users.id','=','posts.user_id')->get(['posts.*','users.name','posts.created_at']);
         $posts = Post::all()->sortByDesc('created_at');
         return view('social_network.post',compact('posts'));
     }
@@ -41,10 +38,6 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        // $request->validate([
-        //     'text' => 'required',
-        //     // 'image' => 'required',
-        // ]);
         $post = new Post();
         $post->user_id = Auth::User()->id;
         $post->text = $request->text;
@@ -100,7 +93,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post_id = Post::findOrFail($id);
+        $post_id->text = $request->text;
+        $post_id->update();
+        return response()->json(['post_id'=>$id,'text'=>$request->text]);
     }
 
     /**
@@ -109,8 +105,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $post_id = Post::find($request->post_id);
+        $post_id->delete(); 
+        return response()->json(['post_id'=>$request->post_id]); 
     }
 }

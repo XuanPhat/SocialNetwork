@@ -16,6 +16,7 @@ class CreateComment extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('content');
             $table->timestamps();
         });

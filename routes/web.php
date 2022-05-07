@@ -33,8 +33,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/post',[App\Http\Controllers\Posts\PostController::class, 'index']);
 // Route::get('/post/create',[App\Http\Controllers\Posts\PostController::class, 'create']);
 Route::post('/post',[App\Http\Controllers\Posts\PostController::class, 'store'])->name('post.store');
-
+Route::delete('/post/delete',[App\Http\Controllers\Posts\PostController::class, 'destroy'])->name('post.destroy');
 Route::get('/post/likePost',[App\Http\Controllers\Posts\LikePostController::class, 'likePost'])->name('post.like');
 Route::get('/post/unlikePost',[App\Http\Controllers\Posts\LikePostController::class, 'unlikePost'])->name('post.unlike');
+Route::put('/post/editPost/{id}',[App\Http\Controllers\Posts\PostController::class, 'update'])->name('update.post');
+// comment
+Route::post('/post/comment',[App\Http\Controllers\Posts\CommentController::class, 'Addcomment'])->name('post.comment');
+Route::put('/post/editComment',[App\Http\Controllers\Posts\CommentController::class, 'update'])->name('update.comment');
+Route::delete('/post/deleteComment/{id}',[App\Http\Controllers\Posts\CommentController::class, 'destroy'])->name('destroy.comment');
 
-// Route::get('/post',[App\Http\Controllers\Posts\LikePostController::class, 'CountLikePost']);
+// Personal
+Route::get('/personal',[App\Http\Controllers\Posts\PersonalController::class, 'show'])->name('personal.show');
