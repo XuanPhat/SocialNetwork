@@ -18,15 +18,23 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin')->middleware(['role:admin']);
-Route::get('/post', function (){
-    return view('social_network.post');
-})->name('post')->middleware(['auth']);
+
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::post('/home',[App\Http\Controllers\HomeController::class, 'upload'])->name('home');
 // Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 // Route::get('/login', function (){
 //      return view('login');
 // })->name('login');
+
+//list posts
+Route::get('/post',[App\Http\Controllers\Posts\PostController::class, 'index']);
+// Route::get('/post/create',[App\Http\Controllers\Posts\PostController::class, 'create']);
+Route::post('/post',[App\Http\Controllers\Posts\PostController::class, 'store'])->name('post.store');
+
+Route::get('/post/likePost',[App\Http\Controllers\Posts\LikePostController::class, 'likePost'])->name('post.like');
+Route::get('/post/unlikePost',[App\Http\Controllers\Posts\LikePostController::class, 'unlikePost'])->name('post.unlike');
+
+// Route::get('/post',[App\Http\Controllers\Posts\LikePostController::class, 'CountLikePost']);

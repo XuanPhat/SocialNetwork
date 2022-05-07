@@ -20,6 +20,9 @@ class RoleSeeder extends Seeder
         // DB::table('roles')->insert([
         //     'name_role' => 'admin'
         // ]);
+        // Role::create([
+        //     'name_role' => 'user'
+        // ]);
         Role::create([
             'name_role' => 'user'
         ]);

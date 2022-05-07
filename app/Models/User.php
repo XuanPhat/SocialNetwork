@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -24,7 +24,6 @@ class User extends Authenticatable
         'gender',
         'image',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,5 +45,13 @@ class User extends Authenticatable
     public function Role()
     {
         return $this->belongsTo('App\Models\Role');
+    }
+    public function Post()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function PostLike()
+    {
+        return $this->hasMany(PostLike::class);
     }
 }
