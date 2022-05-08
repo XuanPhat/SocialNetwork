@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Posts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class PersonalController extends Controller
 {
     /**
@@ -43,9 +43,10 @@ class PersonalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('social_network.personalProfile');
+        $users = User::find($id);
+        return view('social_network.personalProfile',compact("users"));
     }
 
     /**

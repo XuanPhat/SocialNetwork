@@ -43,4 +43,4 @@ Route::put('/post/editComment',[App\Http\Controllers\Posts\CommentController::cl
 Route::delete('/post/deleteComment/{id}',[App\Http\Controllers\Posts\CommentController::class, 'destroy'])->name('destroy.comment');
 
 // Personal
-Route::get('/personal',[App\Http\Controllers\Posts\PersonalController::class, 'show'])->name('personal.show');
+Route::get('/personal/{id}',[App\Http\Controllers\Posts\PersonalController::class, 'show'])->name('personal.show');

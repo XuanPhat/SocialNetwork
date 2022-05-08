@@ -20,18 +20,20 @@ function readURL(input) {
 // disabled button add post
 let text = document.getElementById('text');
 let submit = document.getElementById('submit');
-text.addEventListener('input',(event)=>{
-   if(event.target.value.length > 0)
-   {
-    submit.disabled = false;
-   }
-   else{
-    submit.disabled = true;
-   }
-//    else{
-//     submit.disabled = false;
-//    }
-})
+if(text != null)
+{
+  text.addEventListener('input',(event)=>{
+    if(event.target.value.length > 0)
+    {
+     submit.disabled = false;
+    }
+    else{
+     submit.disabled = true;
+    }
+ 
+ })
+}
+
 
 // foreach exist button clicked
 
@@ -133,6 +135,7 @@ $('.toggle-button').click(function() {
     let textComment = $(this).parent().find('#textComment').val();
     let CommentZero = $(this).parent().find('#textComment').val('');
     let ImageUser = $(this).data('image');
+  
     let ImageStorage = `storage/image/${ImageUser}`;
     let Username = $(this).data('username');
     let post_id = parentComment.find("#editComment").data("postid");
@@ -149,7 +152,7 @@ $('.toggle-button').click(function() {
              parentComment.append(
               template({ImageUser:ImageUser,post_id:post_id,
                 user_id:user_id,comment_id:comment_id,textComment: textComment, 
-                Username:Username,date:fromNow(Date.now()),ImageUser:ImageStorage})
+                Username:Username,date:fromNow(Date.now())})
             )
               CommentZero;
              
@@ -335,7 +338,6 @@ $(document).on("click", "#delete-comment", function () {
 })
 
 $(document).on("click", ".editPost", function () {
-
   $(this).parentsUntil('.grid-margin').find("#text_post").css('display','none');
   $(this).parentsUntil('.grid-margin').find("#editPost").css('display','block');
   let _token   = $('meta[name="csrf-token"]').attr('content');

@@ -116,7 +116,7 @@
 <script id="demo_handlebar" type="text/x-handlebars-template">
     <div class="comment_items d-flex">
         <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width:70px;height:70px" alt="Avatar">
-            <img src=@{{ImageUser}} alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%">
+            <img src="http://127.0.0.1:8000/storage/image/@{{ImageUser}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%">
         </div>
         <div  style="display: flex;
                                                 margin-left: 10px;

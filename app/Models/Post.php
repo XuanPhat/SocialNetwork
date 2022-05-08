@@ -18,16 +18,27 @@ class Post extends Model
         'text',
         'image',
     ];
+
     public function User()
     {
         return $this->belongsTo(User::class);
     }
+
     public function PostLike()
     {
         return $this->hasMany(PostLike::class);
     }
+
     public function Comment()
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function SharePost()
+    {
+      //Probably can be shorter, look at the laravel docs.
+      return $this->hasMany(SharePost::class);
+    }
+
+
 }

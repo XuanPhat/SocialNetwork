@@ -36,9 +36,9 @@ class PostSeeder extends Seeder
         // ]);
 
         Post::create([
-            'user_id'=>3,
-            'text' => 'chia tay',
-            'image'=>'image.jpg'
+            'user_id'=>1,
+            'text' => 'chia se bai cua hoang tran',
+            'image'=> null
         ]);
     }
 }
