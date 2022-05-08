@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUsersTableRole extends Migration
+class AddUseridAndCommentidToCommentAndPost extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class UpdateUsersTableRole extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('role_id')->references("id")->on("roles")->onDelete('cascade');
+        Schema::table('post_likes', function (Blueprint $table) {
+            $table->foreign('user_id')->references("id")->on("users")->onDelete('cascade');
+            $table->foreign('post_id')->references("id")->on("posts")->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -24,7 +26,7 @@ class UpdateUsersTableRole extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('post_likes', function (Blueprint $table) {
             //
         });
     }
