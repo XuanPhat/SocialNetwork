@@ -9,8 +9,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/main.js') }}" defer></script>
-
+    {{-- <script src="{{ asset('js/main.js') }}" defer></script> --}}
+    <script src="/js/main.js" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -20,15 +20,25 @@
 
     {{-- bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
     
+     {{-- jquery --}}
+     
+
+ {{-- handlebar --}}
+ {{-- <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script> --}}
+ <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+{{-- <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script> 
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -79,14 +89,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <li>
-                                {{-- <div> --}}
-                                    <form method="POST" action="{{route("logout")}}">
-                                        @csrf
-                                                <input type="submit" value="logout" />
-                                    </form>
-                                {{-- </div> --}}
-                            </li>
+                           
                           
                         @endguest
                     </ul>
@@ -98,5 +101,60 @@
             @yield('content')
         </main>
     </div>
+
+  
+   
 </body>
 </html>
+<script id="demo_handlebar" type="text/x-handlebars-template">
+    <div class="comment_items d-flex">
+        <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width:70px;height:70px" alt="Avatar">
+            <img src="http://127.0.0.1:8000/storage/image/@{{ImageUser}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%">
+        </div>
+        <div  style="display: flex;
+                                                margin-left: 10px;
+                                                flex-direction: column;
+                                                width: 100%;">
+            <div style="font-weight: bold">
+                @{{Username}}
+            </div>
+            <div class="comment_text">
+                <p id="comment_des">@{{textComment}}</p>
+            </div>
+            <input style="display: none" data-image=@{{ImageUser}}
+            data-idcomment=@{{comment_id}} data-postid=@{{post_id}} data-userid=@{{user_id}}  
+            class="form-control" value=@{{textComment}} id="editComment" class="editComment" type="text" 
+            name="text" placeholder="Comment...">
+            <div class="time_comment">
+                <p id="time_comment">@{{date}}</p>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn p-0" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-more-horizontal icon-lg pb-3px">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+            </svg>
+            </button>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+             <li><a class="dropdown-item" data-id=@{{comment_id}} id="delete-comment" >Delete Comment</a></li>
+             <li class="edit" id="edit"><a class="dropdown-item" >Edit comment</a></li>  
+            
+            </ul>
+          </div>
+    </div>
+</script>
+<script id="comment_edit" type="text/x-handlebars-template">
+                <p id="comment_des">@{{content}}</p>
+</script>
+<script id="time_comment_handlebar" type="text/x-handlebars-template">
+    <p id="time_comment">just now</p>
+</script>
+<script id="edit_post" type="text/x-handlebars-template">
+    @{{text}}
+</script>
