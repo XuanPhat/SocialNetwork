@@ -14,12 +14,15 @@
                                 <span class="profile-name">{{$users->name}}</span>
                             </div>
                             <div class="d-none d-md-block">
-                                <button class="btn btn-primary btn-icon-text btn-edit-profile">
+                                {{-- <button class="btn btn-primary btn-icon-text btn-edit-profile">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                     </svg> Edit profile
-                                </button>
+                                </button> --}}
+                                <form action="/Editprofile/{{$users->id}}" method="GET">
+                                    <input class="btn btn-primary" type="submit" value="Edit profile">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -38,13 +41,7 @@
                                 </svg>
                                 <a class="pt-1px d-none d-md-block" href="#">About</a>
                             </li>
-                            <button class="btn btn-primary btn-icon-text btn-edit-profile">
-                                {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>  --}}
-                                follow
-                            </button>
+                        
                             {{-- <li class="header-link-item ms-3 pe-3 border-left d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users mr-1 icon-md">
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -331,7 +328,7 @@
                                         </svg>
                                         <p class="d-none d-md-block ms-2">Comment</p>
                                     </a>
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted">
+                                    {{-- <a href="javascript:;" class="d-flex align-items-center text-muted">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -341,7 +338,7 @@
                                             <line x1="12" y1="2" x2="12" y2="15"></line>
                                         </svg>
                                         <p class="d-none d-md-block ms-2">Share</p>
-                                    </a>
+                                    </a> --}}
                                 </div>
                               <div class="comment_container">
                                  <div class="d-block post-actions" id="comment_list">
@@ -422,7 +419,7 @@
                 <div class="row">
                     <div class="col-md-12 grid-margin">
                         <div class="card rounded">
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <h6 class="card-title">latest photos</h6>
                                 <div class="latest-photos">
                                     <div class="row">
@@ -473,10 +470,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class="col-md-12 grid-margin">
+                    {{-- <div class="col-md-12 grid-margin">
                         <div class="card rounded">
                             <div class="card-body">
                                 <h6 class="card-title">suggestions for you</h6>
@@ -585,7 +582,7 @@
     
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <!-- right wrapper end -->

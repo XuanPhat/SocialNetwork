@@ -2,14 +2,17 @@
 @section('content')
 @php
 
-   foreach ($posts as $key => $value) {
-      foreach ($value->SharePost as $key2 => $value2) {
-             dd($value2);
-      }
-   }
+//    foreach ($posts as $key => $value) {
+//       foreach ($value->SharePost as $key2 => $value2) {
+//              dd($value2);
+//       }
+//    }
 @endphp
     <div class="container" style="margin-top: 50px">
         <div class="profile-page tx-13">
+          
+              
+           
             <div class="row">
                 <div class="col-12 grid-margin">
                     <div class="profile-header">
@@ -24,20 +27,26 @@
                                         <img class="profile-pic" src="{{ asset('storage/image/'.Auth::user()->image) }}"
                                             alt="profile">
                                     @endif
-                                    <span class="profile-name">Amiah Burton</span>
+                                    <span class="profile-name">{{Auth::user()->name}}</span>
                                 </div>
                                 <div class="d-none d-md-block">
-                                    <button class="btn btn-primary btn-icon-text btn-edit-profile">
+                                    {{-- <button class="btn btn-primary btn-icon-text btn-edit-profile">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                         </svg> Edit profile
-                                    </button>
+                                    </button> --}}
+                                    <form action='/Editprofile/{{Auth::user()->id}}' method="GET">
+                                        <input class="btn btn-primary" type="submit" value="Edit profile" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                      
+                          
+                       
                         {{-- <div class="header-links">
                         <ul class="links d-flex align-items-center mt-3 mt-md-0">
                             <li class="header-link-item d-flex align-items-center active">
@@ -98,6 +107,12 @@
                 </div>
             </div>
             <div class="row profile-body">
+                @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                          
+                        </div>
+                 @endif
                 <!-- left wrapper start -->
                 <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
                     <div class="card rounded">
@@ -145,25 +160,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <p>Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you enjoy the design and quality of
-                                Social.</p>
+                            <p>{{Auth::user()->description}}</p>
                             <div class="mt-3">
                                 <label class="tx-11 font-weight-bold mb-0 text-uppercase">Joined:</label>
-                                <p class="text-muted">November 15, 2015</p>
+                                <p class="text-muted">{{Auth::user()->created_at->toDateString()}}</p>
                             </div>
                             <div class="mt-3">
                                 <label class="tx-11 font-weight-bold mb-0 text-uppercase">Lives:</label>
-                                <p class="text-muted">New York, USA</p>
+                                <p class="text-muted">{{Auth::user()->address}}</p>
                             </div>
                             <div class="mt-3">
                                 <label class="tx-11 font-weight-bold mb-0 text-uppercase">Email:</label>
-                                <p class="text-muted">me@nobleui.com</p>
+                                <p class="text-muted">{{Auth::user()->email}}</p>
                             </div>
-                            <div class="mt-3">
-                                <label class="tx-11 font-weight-bold mb-0 text-uppercase">Website:</label>
-                                <p class="text-muted">www.nobleui.com</p>
-                            </div>
-                            <div class="mt-3 d-flex social-links">
+                            {{-- <div class="mt-3 d-flex social-links">
                                 <a href="javascript:;"
                                     class="btn d-flex align-items-center justify-content-center border mr-2 btn-icon github">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -197,7 +207,7 @@
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -303,16 +313,17 @@
                                         <img class="img-fluid" style="margin-top: 10px" src="{{ asset('storage/image/'.$post->image) }}"
                                             alt="">
                                             @php
-                                               dd($post);
+                                            //    dd($post->id);
                                             @endphp
 
                                             @foreach ($post->SharePost as $sharepost)
-                                              {{-- @php
-                                              dd($post->id);
+                                              @php
+                                            
                                                 //   dd($sharepost->Post->id);
-                                              @endphp --}}
-                                           
-                                             <div class="card rounded">
+                                              @endphp
+                                              {{-- @if ($post->User->id == $sharepost->user_id && $sharepost->post_id == $sharepost->Post->id) --}}
+                                              @if ($sharepost->user_id = 1 && $sharepost->post_id = 4 )
+                                              <div class="card rounded">
                                                 <div class="card-header">
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div class="d-flex align-items-center">
@@ -390,6 +401,9 @@
                                                 </div>
                                             </div>
                                                  
+                                              @endif
+                                           
+                                           
                                             
                                             
                                             
@@ -467,7 +481,7 @@
                                                 </svg>
                                                 <p class="d-none d-md-block ms-2">Comment</p>
                                             </a>
-                                            <a href="javascript:;" class="d-flex align-items-center text-muted">
+                                            {{-- <a href="javascript:;" class="d-flex align-items-center text-muted">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"
@@ -477,7 +491,7 @@
                                                     <line x1="12" y1="2" x2="12" y2="15"></line>
                                                 </svg>
                                                 <p class="d-none d-md-block ms-2">Share</p>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                     {{-- @php
                                        foreach ($post->Comment as $key => $value) {
@@ -488,11 +502,11 @@
                                          <div class="d-block post-actions" id="comment_list">
                                             @foreach ($post->Comment as $key => $value)
                                             <div class="comment_items d-flex">
-                                                <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width:70px;height:70px" alt="Avatar">
+                                                {{-- <div class="rounded-circle border d-flex justify-content-center align-items-center"  alt="Avatar"> --}}
                                                     <a href="/personal/{{$value->User->id}}">
-                                                    <img src="{{ asset('storage/image/'.$value->User->image)}}" alt="error" style="object-fit: cover;width:100%;height:100%;border-radius:100%">
+                                                    <img src="{{ asset('storage/image/'.$value->User->image)}}" alt="error" style="object-fit: cover;width:70px;height:70px;border-radius:100%">
                                                     </a>
-                                                </div>
+                                                {{-- </div> --}}
                                                 <div  style="display: flex;
                                                 margin-left: 10px;
                                                 flex-direction: column;
@@ -555,164 +569,6 @@
                             </div>
                         @endforeach
 
-                        <div class="col-md-12">
-                        <div class="card rounded">
-                            <div class="card-header">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img class="img-xs rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                                        <div class="ml-2">
-                                            <p>Mike Popescu</p>
-                                            <p class="tx-11 text-muted">5 min ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
-                                                <circle cx="12" cy="12" r="1"></circle>
-                                                <circle cx="19" cy="12" r="1"></circle>
-                                                <circle cx="5" cy="12" r="1"></circle>
-                                            </svg>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-meh icon-sm mr-2">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <line x1="8" y1="15" x2="16" y2="15"></line>
-                                                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                                                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                                                </svg> <span class="">Unfollow</span></a>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-right-up icon-sm mr-2">
-                                                    <polyline points="10 9 15 4 20 9"></polyline>
-                                                    <path d="M4 20h7a4 4 0 0 0 4-4V4"></path>
-                                                </svg> <span class="">Go to post</span></a>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 icon-sm mr-2">
-                                                    <circle cx="18" cy="5" r="3"></circle>
-                                                    <circle cx="6" cy="12" r="3"></circle>
-                                                    <circle cx="18" cy="19" r="3"></circle>
-                                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                                                </svg> <span class="">Share</span></a>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy icon-sm mr-2">
-                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                                </svg> <span class="">Copy link</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="mb-3 tx-14">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                {{-- <img class="img-fluid" src="../../../assets/images/sample2.jpg" alt=""> --}}
-                                <div class="card rounded">
-                                    <div class="card-header">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <img class="img-xs rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                                                <div class="ml-2">
-                                                    <p>Mike Popescu</p>
-                                                    <p class="tx-11 text-muted">5 min ago</p>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <button class="btn p-0" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
-                                                        <circle cx="12" cy="12" r="1"></circle>
-                                                        <circle cx="19" cy="12" r="1"></circle>
-                                                        <circle cx="5" cy="12" r="1"></circle>
-                                                    </svg>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-meh icon-sm mr-2">
-                                                            <circle cx="12" cy="12" r="10"></circle>
-                                                            <line x1="8" y1="15" x2="16" y2="15"></line>
-                                                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                                                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                                                        </svg> <span class="">Unfollow</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-right-up icon-sm mr-2">
-                                                            <polyline points="10 9 15 4 20 9"></polyline>
-                                                            <path d="M4 20h7a4 4 0 0 0 4-4V4"></path>
-                                                        </svg> <span class="">Go to post</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 icon-sm mr-2">
-                                                            <circle cx="18" cy="5" r="3"></circle>
-                                                            <circle cx="6" cy="12" r="3"></circle>
-                                                            <circle cx="18" cy="19" r="3"></circle>
-                                                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                                                        </svg> <span class="">Share</span></a>
-                                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy icon-sm mr-2">
-                                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                                        </svg> <span class="">Copy link</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="mb-3 tx-14">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                        <img class="img-fluid" src="../../../assets/images/sample2.jpg" alt="">
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="d-flex post-actions">
-                                            <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-                                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                                </svg>
-                                                <p class="d-none d-md-block ml-2">Like</p>
-                                            </a>
-                                            <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square icon-md">
-                                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                                </svg>
-                                                <p class="d-none d-md-block ml-2">Comment</p>
-                                            </a>
-                                            <a href="javascript:;" class="d-flex align-items-center text-muted">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share icon-md">
-                                                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                                    <polyline points="16 6 12 2 8 6"></polyline>
-                                                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                                                </svg>
-                                                <p class="d-none d-md-block ml-2">Share</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-flex post-actions">
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                        </svg>
-                                        <p class="d-none d-md-block ml-2">Like</p>
-                                    </a>
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square icon-md">
-                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                        </svg>
-                                        <p class="d-none d-md-block ml-2">Comment</p>
-                                    </a>
-                                    <a href="javascript:;" class="d-flex align-items-center text-muted">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share icon-md">
-                                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                            <polyline points="16 6 12 2 8 6"></polyline>
-                                            <line x1="12" y1="2" x2="12" y2="15"></line>
-                                        </svg>
-                                        <p class="d-none d-md-block ml-2">Share</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
                 <!-- middle wrapper end -->
                 <!-- right wrapper start -->
                 <div class="d-none d-xl-block col-xl-3 right-wrapper">

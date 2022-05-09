@@ -58,7 +58,7 @@ class PostController extends Controller
             $post->image = null;
             echo "Error image";
         }
-        return redirect('/post')->with('success','Post updated successfully!');
+        return redirect('/post');
     }
 
    

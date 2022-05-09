@@ -30,7 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 // })->name('login');
 
 //list posts
-Route::get('/post',[App\Http\Controllers\Posts\PostController::class, 'index']);
+Route::get('/post',[App\Http\Controllers\Posts\PostController::class, 'index'])->middleware('auth');
 // Route::get('/post/create',[App\Http\Controllers\Posts\PostController::class, 'create']);
 Route::post('/post',[App\Http\Controllers\Posts\PostController::class, 'store'])->name('post.store');
 Route::delete('/post/delete',[App\Http\Controllers\Posts\PostController::class, 'destroy'])->name('post.destroy');
@@ -43,4 +43,7 @@ Route::put('/post/editComment',[App\Http\Controllers\Posts\CommentController::cl
 Route::delete('/post/deleteComment/{id}',[App\Http\Controllers\Posts\CommentController::class, 'destroy'])->name('destroy.comment');
 
 // Personal
-Route::get('/personal/{id}',[App\Http\Controllers\Posts\PersonalController::class, 'show'])->name('personal.show');
+Route::get('/personal/{id}',[App\Http\Controllers\Posts\PersonalController::class, 'show'])->name('personal.show')->middleware('auth');
+
+Route::get('/Editprofile/{id}',[App\Http\Controllers\Posts\ProfileController::class, 'index'])->name('profile.index')->middleware('auth');
+Route::put('/Editprofile/{id}',[App\Http\Controllers\Posts\ProfileController::class, 'update'])->name('profile.update');
